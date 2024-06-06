@@ -1,0 +1,68 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center; /* Center the container vertically */
+    align-items: center; /* Center the container horizontally */
+    background-color: #f5f5f5; /* Light background color */
+}
+
+/* Login Container */
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    width: 400px; /* Set a fixed width for the container */
+}
+
+/* Login Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    display: flex; /* Align label and input side-by-side */
+}
+
+.login-form label {
+    width: 120px; /* Set label width */
+    text-align: right; /* Align label text to the right */
+    margin-right: 10px; /* Add spacing between label and input */
+    font-weight: bold;
+}
+
+.login-form input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none; /* Remove default outline on focus */
+    flex: 1; /* Allow input to expand to fill remaining space */
+}
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    /* Inherit common styles from parent */
+}
+
+.login-form button {
+    padding: 15px 20px;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+    margin-top: 20px; /* Add some space above the button */
+    width: 100%; /* Make button fill container width */
+}
+
+.login-form button:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+}

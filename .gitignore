@@ -1,6 +1,26 @@
-composer.phar
-/vendor/
+# Vendor directory (assuming Composer is used)
+vendor/
 
-# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
-# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
-# composer.lock
+# IDE specific configuration files
+.idea/
+*.iml
+
+# dotenv file for environment variables
+application/.env
+
+# Coverage reports
+coverage/
+
+# Temporary files
+*.tmp
+
+# Backups
+backups/
+
+# Editor temporary/backup files
+*~
+*.swp
+
+# Hidden files on Unix-based OS
+.DS_Store
+.phpunit.result.cache
