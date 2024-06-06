@@ -82,4 +82,159 @@ class UserTest extends TestCase
         $loggedInUser = $userClass->login($user["email"], $user["password"]);
         $this->assertFalse($loggedInUser);
     }
+
+    public function testUserFound()
+    {
+        // Mock PDO connection and prepared statement
+        $mockPdo = $this->createMock(PDO::class);
+        $mockStmt = $this->createMock(PDOStatement::class);
+
+        $user = [
+            "id" => 1,
+            "name" => "John Doe",
+            "email" => "john.doe@example.com"
+        ];
+
+        // Mock successful execution and user fetch
+        $mockStmt->method("execute")->willReturn(true);
+        $mockStmt->method("fetch")->willReturn($user);
+        $mockPdo->method("prepare")->willReturn($mockStmt);
+
+        // Mock Database to return the PDO connection
+        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
+
+        // Create User object with mocked Database
+        $userClass = new User($this->mockDatabase);
+
+        // Call getUserById
+        $fetchedUser = $userClass->getUserById(1);
+
+        // Assertions
+        $this->assertEquals($user, $fetchedUser);
+    }
+
+    public function testUserNotFound()
+    {
+        // Mock PDO connection and prepared statement
+        $mockPdo = $this->createMock(PDO::class);
+        $mockStmt = $this->createMock(PDOStatement::class);
+
+        // Mock successful execution but no user found
+        $mockStmt->method("execute")->willReturn(true);
+        $mockStmt->method("fetch")->willReturn(false);
+        $mockPdo->method("prepare")->willReturn($mockStmt);
+
+        // Mock Database to return the PDO connection
+        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
+
+        // Create User object with mocked Database
+        $userClass = new User($this->mockDatabase);
+
+        // Call getUserById
+        $fetchedUser = $userClass->getUserById(10);
+
+        // Assertions
+        $this->assertNull($fetchedUser);
+    }
+
+    public function testSearchUsersExactMatch()
+    {
+        // Mock PDO connection and prepared statement
+        $mockPdo = $this->createMock(PDO::class);
+        $mockStmt = $this->createMock(PDOStatement::class);
+
+        $user1 = [
+            "id" => 2,
+            "name" => "John Doe",
+            "email" => "john.doe@example.com"
+        ];
+
+        $user2 = [
+            "id" => 3,
+            "name" => "Jane Smith",
+            "email" => "jane.smith@example.com"
+        ];
+
+        // Mock successful execution and multiple rows returned (matching name)
+        $mockStmt->method("execute")->willReturn(true);
+        $mockStmt->method("fetch")->willReturn([$user1, $user2]);
+        $mockPdo->method("prepare")->willReturn($mockStmt);
+
+        // Mock Database to return the PDO connection
+        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
+
+        // Mock logged-in user ID
+        $_SESSION['user_id'] = 1;
+
+        // Create User object with mocked Database
+        $userClass = new User($this->mockDatabase);
+
+        // Call searchUsers
+        $searchResults = $userClass->searchUsers("John Doe"); // Exact name match
+        // Assertions
+        $this->assertCount(2, $searchResults); // Assert two users found
+        $this->assertEquals($user1, $searchResults[0]); // Assert first user data
+        $this->assertEquals($user2, $searchResults[1]); // Assert second user data
+    }
+
+    public function testSearchUsersPartialMatch()
+    {
+        // Mock PDO connection and prepared statement
+        $mockPdo = $this->createMock(PDO::class);
+        $mockStmt = $this->createMock(PDOStatement::class);
+
+        $user1 = [
+            "id" => 2,
+            "name" => "John Smith", // Partial match in name
+            "email" => "john.smith@example.com"
+        ];
+
+        // Mock successful execution and one row returned (matching name partially)
+        $mockStmt->method("execute")->willReturn(true);
+        $mockStmt->method("fetch")->willReturn([$user1]);
+        $mockPdo->method("prepare")->willReturn($mockStmt);
+
+        // Mock Database to return the PDO connection
+        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
+
+        // Mock logged-in user ID (replace with actual logic)
+        $_SESSION['user_id'] = 1;
+
+        // Create User object with mocked Database
+        $userClass = new User($this->mockDatabase);
+
+        // Call searchUsers
+        $searchResults = $userClass->searchUsers("Smith"); // Partial name match
+
+        // Assertions
+        $this->assertCount(1, $searchResults); // Assert one user found
+        $this->assertEquals($user1, $searchResults[0]); // Assert user data
+    }
+
+    public function testSearchUsersNoMatch()
+    {
+        // Mock PDO connection and prepared statement
+        $mockPdo = $this->createMock(PDO::class);
+        $mockStmt = $this->createMock(PDOStatement::class);
+
+        // Mock successful execution but no rows returned
+        $mockStmt->method("execute")->willReturn(true);
+        $mockStmt->method("fetch")->willReturn([]);
+        $mockPdo->method("prepare")->willReturn($mockStmt);
+
+        // Mock Database to return the PDO connection
+        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
+
+        // Mock logged-in user ID
+        $_SESSION['user_id'] = 1;
+
+        // Create User object with mocked Database
+        $userClass = new User($this->mockDatabase);
+
+        // Call searchUsers
+        $searchResults = $userClass->searchUsers("Unknown Name"); // No match
+
+        // Assertions
+        $this->assertEmpty($searchResults); // Assert no users found
+    }
 }
