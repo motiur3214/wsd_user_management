@@ -28,6 +28,12 @@ if (isset($_SESSION['user_id'])) {
         <a href="../logout" class="logout">Logout</a>
     </header>
     <main>
+        <?php
+        if (isset($_SESSION['errors']) && $_SESSION['errors'] == "none") {
+            echo "<p class='success'>Successfully updated!</p>";
+            unset($_SESSION['errors']); // Clear the session variable after displaying the message
+        }
+        ?>
         <section class="user-info">
             <h2>User Information</h2>
             <ul>
@@ -35,6 +41,14 @@ if (isset($_SESSION['user_id'])) {
                 <li>Email: <?php echo $user_data["email"]; ?></li>
 
             </ul>
+            <a href="<?php echo BASE_URL . "/user_update?user_id=" . $user_data["id"]; ?>">
+                <button class='update-user-btn'>Update</button>
+            </a>
+            <form action="../user_delete" method="post"
+                  onsubmit="return confirm('Are you sure you want to delete your account?')">
+                <input type='hidden' name='user_id' value=" <?php echo $user_data['id']; ?>">
+                <button type="submit" class='delete-user-btn'>Delete Account</button>
+            </form>
         </section>
     </main>
     <footer>

@@ -37,6 +37,14 @@ if (str_contains($_SERVER['REQUEST_URI'], '/wsd_user_management')) {
             // user Dashboard
             include 'application/Service/user/user_dashboard.php';
             break;
+        case 'user_update?user_id=' . $user_id:
+            // user update route
+            include 'application/Controller/user_update.php';
+            break;
+        case 'user_delete':
+            // user delete route
+            include 'application/Controller/user_delete.php';
+            break;
         default:
             echo "Invalid user_management route";
             break;

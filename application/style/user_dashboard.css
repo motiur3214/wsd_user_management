@@ -71,3 +71,31 @@ footer {
     padding: 10px;
     text-align: center;
 }
+
+.update-user-btn {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-user-btn {
+    background-color: #f1344b; /* Green background */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 3px;
+}

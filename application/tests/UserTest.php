@@ -237,4 +237,53 @@ class UserTest extends TestCase
         // Assertions
         $this->assertEmpty($searchResults); // Assert no users found
     }
+
+    public function testEmailExists()
+    {
+        // Mock PDO connection and prepared statement
+        $mockPdo = $this->createMock(PDO::class);
+        $mockStmt = $this->createMock(PDOStatement::class);
+
+        // Mock successful execution and one row returned
+        $mockStmt->method("execute")->willReturn(true);
+        $mockStmt->method("rowCount")->willReturn(1);
+        $mockPdo->method("prepare")->willReturn($mockStmt);
+
+        // Mock Database to return the PDO connection
+        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
+
+        // Create User object with mocked Database
+        $userClass = new User($this->mockDatabase);
+
+        // Call isEmailExists
+        $emailExists = $userClass->isEmailExists("john.doe@example.com");
+
+        // Assertions
+        $this->assertTrue($emailExists);
+    }
+
+    public function testEmailDoesNotExist()
+    {
+        // Mock PDO connection and prepared statement
+        $mockPdo = $this->createMock(PDO::class);
+        $mockStmt = $this->createMock(PDOStatement::class);
+
+        // Mock successful execution but no rows returned
+        $mockStmt->method("execute")->willReturn(true);
+        $mockStmt->method("rowCount")->willReturn(0);
+        $mockPdo->method("prepare")->willReturn($mockStmt);
+
+        // Mock Database to return the PDO connection
+        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
+
+        // Create User object with mocked Database
+        $userClass = new User($this->mockDatabase);
+
+        // Call isEmailExists
+        $emailExists = $userClass->isEmailExists("unknown@example.com");
+
+        // Assertions
+        $this->assertFalse($emailExists);
+    }
+
 }

@@ -124,6 +124,23 @@ footer {
 
 }
 
+.add-user-btn {
+    background-color: #4CAF50; /* Green color */
+    /*border: none;*/
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    /*margin: 10px auto; !* Optional: Center the button horizontally *!*/
+    cursor: pointer; /* Indicate clickable behavior */
+}
+
+.add-user-btn:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+}
+
 .pagination {
     display: flex;
     list-style: none;
@@ -156,6 +173,35 @@ footer {
 .action td {
     display: flex; /* Make action column cells display flex */
     justify-content: space-between; /* Align buttons horizontally within the cell */
+}
+
+
+.update-user-btn {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-user-btn {
+    background-color: #f1344b; /* Green background */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 3px;
 }
 
 .logout { /* Style the logout link */

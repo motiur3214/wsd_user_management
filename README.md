@@ -1,18 +1,23 @@
 A simple User Management System with an admin and user dashboard
 
--Pull from the development branch 
+-Pull from the main branch 
 
 -Features:
   
   -User:
-    
+
     -Login
     -Logout
+    -Update
+    -Remove
 
   -Admin
     
     -Login
+    -UserList
     -Logout
+    -Update
+    -Remove
  
   -Requirements 
 

@@ -46,6 +46,13 @@ if (isset($_SESSION['user_id'])) {
 </header>
 <div class="container">
     <main>
+        <!-- Display success message if user update is successful -->
+        <?php
+        if (isset($_SESSION['errors']) && $_SESSION['errors'] == "none") {
+            echo "<p class='success'>User successfully updated!</p>";
+            unset($_SESSION['errors']); // Clear the session variable after displaying the message
+        }
+        ?>
         <section class="search-filter">
             <form action="" method="post">
                 <div>
@@ -56,6 +63,7 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <button type="submit">Search</button>
             </form>
+
         </section>
 
         <?php
@@ -66,6 +74,7 @@ if (isset($_SESSION['user_id'])) {
             echo "<th>Name</th>";
             echo "<th>Email</th>";
             echo "<th>Role</th>";
+            echo "<th>Action</th>";
             echo "</tr>";
 
             // Loop through all users (filtered or unfiltered) and display information in a table
@@ -77,7 +86,15 @@ if (isset($_SESSION['user_id'])) {
                 if (isset($user_data["role"])) {
                     echo "<td>" . ($user_data["role"] == 2 ? 'User' : 'Admin') . "</td>"; // Display role if available, otherwise empty string
                 }
+
+                echo "<td>";
+                echo "<a href='" . BASE_URL . "/user_update?user_id=" . $user_data['id'] . "'><button class='update-user-btn'>Update</button></a>";
+                echo "<form action='../user_delete' method='post' onsubmit='return confirm(`Are you sure you want to delete this account?`)'>";
+                // Hidden confirmation field
+                echo "<input type='hidden' name='user_id' value='" . $user_data['id'] . "'>";
+                echo "<button type='submit' class='delete-user-btn'>Delete</button>";
                 echo "</form>";
+                echo "</td>";
                 echo "</tr>";
             }
 

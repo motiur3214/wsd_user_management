@@ -51,6 +51,7 @@ class User
             echo "Error: " . $e->getMessage();
         }
     }
+
     public function countUsers()
     {
         try {
@@ -110,4 +111,57 @@ class User
         }
     }
 
+    public function updateUser(array $user): bool
+    {
+        // Prepare SQL statement (using parameterized query for security)
+        $sql = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+        $stmt = $this->connection->prepare($sql);
+        // Bind values to prevent SQL injection vulnerabilities
+        $stmt->bindParam(":name", $user["name"]);
+        $stmt->bindParam(":email", $user["email"]);
+        $stmt->bindParam(":id", $user["id"], PDO::PARAM_INT);
+        // Execute the statement and check for success
+        if ($stmt->execute()) {
+            return true; // Update successful
+        } else {
+            // Handle update failure (e.g., log the error)
+            error_log("Update failed: " . implode(", ", $stmt->errorInfo()));
+            return false;
+        }
+    }
+
+    public function deleteUser(int $userId): bool
+    {
+        // Prepare SQL statement to delete a user by ID
+        $sql = "DELETE FROM users WHERE id = :id";
+        $stmt = $this->connection->prepare($sql);
+        // Bind the user ID parameter
+        $stmt->bindParam(":id", $userId, PDO::PARAM_INT);
+
+        // Execute the delete statement and check for success
+        if ($stmt->execute()) {
+            return true; // Deletion successful
+        } else {
+            // Handle deletion failure (e.g., log the error)
+            error_log("Deletion failed: " . implode(", ", $stmt->errorInfo()));
+            return false;
+        }
+    }
+    public function isEmailExists($email)
+    {
+        try {
+
+            $stmt = $this->connection->prepare("SELECT id FROM users WHERE email = :email");
+
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR); // Specify string binding for email
+
+            $stmt->execute();
+
+            $rowCount = $stmt->rowCount(); // Count rows returned
+
+            return $rowCount > 0;  // Return true if email exists (at least one row)
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }
