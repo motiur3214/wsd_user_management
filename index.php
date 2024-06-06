@@ -24,6 +24,19 @@ if (str_contains($_SERVER['REQUEST_URI'], '/wsd_user_management')) {
             // logout route
             include 'application/Controller/logout.php';
             break;
+        case 'dashboard':
+            // dashboard validation
+            include 'application/Controller/dashboard.php';
+            break;
+        case 'admin/dashboard?page=' . $page:
+        case 'admin/dashboard':
+            // Admin dashboard with or without parameter
+            include 'application/Service/admin/admin_dashboard.php';
+            break;
+        case 'user/dashboard':
+            // user Dashboard
+            include 'application/Service/user/user_dashboard.php';
+            break;
         default:
             echo "Invalid user_management route";
             break;

@@ -21,9 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user) {
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["user_role"] = $user['role'];
-        print_r("success");
-        exit();
-
+        header("Location:" . BASE_URL . "/dashboard");
     } else {
         $_SESSION["error_message"] = "Invalid email or password. Please try again.";
         header("Location:" . BASE_URL . "/login");
