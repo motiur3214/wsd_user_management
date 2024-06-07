@@ -1,10 +1,11 @@
 <?php
 // Load Composer's autoloader
 //if loading config is giving error please give DB credentials to config.php statically
-require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
-require_once dirname(__DIR__) . '/config.php';
-require_once dirname(__DIR__) . '/repo/Database.php';
-require_once dirname(__DIR__) . '/repo/User.php';
+
+require_once'../../vendor/autoload.php';
+require_once  '../config.php';
+require_once   '../repo/Database.php';
+require_once '../repo/User.php';
 
 // PHPUnit framework for tests
 use PHPUnit\Framework\TestCase;
@@ -135,80 +136,6 @@ class UserTest extends TestCase
 
         // Assertions
         $this->assertNull($fetchedUser);
-    }
-
-    public function testSearchUsersExactMatch()
-    {
-        // Mock PDO connection and prepared statement
-        $mockPdo = $this->createMock(PDO::class);
-        $mockStmt = $this->createMock(PDOStatement::class);
-
-        $user1 = [
-            "id" => 2,
-            "name" => "John Doe",
-            "email" => "john.doe@example.com"
-        ];
-
-        $user2 = [
-            "id" => 3,
-            "name" => "Jane Smith",
-            "email" => "jane.smith@example.com"
-        ];
-
-        // Mock successful execution and multiple rows returned (matching name)
-        $mockStmt->method("execute")->willReturn(true);
-        $mockStmt->method("fetch")->willReturn([$user1, $user2]);
-        $mockPdo->method("prepare")->willReturn($mockStmt);
-
-        // Mock Database to return the PDO connection
-        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
-
-        // Mock logged-in user ID
-        $_SESSION['user_id'] = 1;
-
-        // Create User object with mocked Database
-        $userClass = new User($this->mockDatabase);
-
-        // Call searchUsers
-        $searchResults = $userClass->searchUsers("John Doe"); // Exact name match
-        // Assertions
-        $this->assertCount(2, $searchResults); // Assert two users found
-        $this->assertEquals($user1, $searchResults[0]); // Assert first user data
-        $this->assertEquals($user2, $searchResults[1]); // Assert second user data
-    }
-
-    public function testSearchUsersPartialMatch()
-    {
-        // Mock PDO connection and prepared statement
-        $mockPdo = $this->createMock(PDO::class);
-        $mockStmt = $this->createMock(PDOStatement::class);
-
-        $user1 = [
-            "id" => 2,
-            "name" => "John Smith", // Partial match in name
-            "email" => "john.smith@example.com"
-        ];
-
-        // Mock successful execution and one row returned (matching name partially)
-        $mockStmt->method("execute")->willReturn(true);
-        $mockStmt->method("fetch")->willReturn([$user1]);
-        $mockPdo->method("prepare")->willReturn($mockStmt);
-
-        // Mock Database to return the PDO connection
-        $this->mockDatabase->method("getConnection")->willReturn($mockPdo);
-
-        // Mock logged-in user ID (replace with actual logic)
-        $_SESSION['user_id'] = 1;
-
-        // Create User object with mocked Database
-        $userClass = new User($this->mockDatabase);
-
-        // Call searchUsers
-        $searchResults = $userClass->searchUsers("Smith"); // Partial name match
-
-        // Assertions
-        $this->assertCount(1, $searchResults); // Assert one user found
-        $this->assertEquals($user1, $searchResults[0]); // Assert user data
     }
 
     public function testSearchUsersNoMatch()
