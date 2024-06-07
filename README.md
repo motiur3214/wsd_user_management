@@ -1,6 +1,6 @@
 A simple User Management System with an admin and user dashboard
 
--Pull from the development branch
+-Pull from the Main branch
 
 -Features:
 
