@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Header/Nav Bar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    color: white;
+    background: linear-gradient(to right, #3da613, #b8c4b4); /* Gradient from left to right */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav {
+    display: flex;
+    gap: 10px;
+}
+
+header .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #3e8e41;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+header .nav-link:hover {
+    background-color: #2e6e31;
+}
+
+main {
+    padding: 20px;
+    flex: 1; /* Make main content take up remaining space */
+}
+
+
+section h2 {
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+}
+
+.update-user-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    border: none;
+}
+
+.delete-user-btn {
+    background-color: #f1344b;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    border: none;
+}

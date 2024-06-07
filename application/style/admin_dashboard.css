@@ -1,0 +1,138 @@
+
+table {
+    width: 100%; /* Make table fill available width */
+    border-collapse: collapse; /* Remove borders between cells */
+}
+
+th, td {
+    padding: 8px;
+    text-align: left; /* Align content to the left */
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) { /* Add a lighter background color for even rows */
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #4CAF50; /* Header background color */
+    color: white;
+}
+
+/* Section Styles */
+section.search-filter {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+.search-filter form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input Group */
+.search-filter .input-group {
+    margin-bottom: 15px;
+}
+
+/* Label Styles */
+.search-filter label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Input Styles */
+.search-filter input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Button Styles */
+.search-filter button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    width: 100%;
+    font-size: 14px;
+}
+
+.search-filter button:hover {
+    background-color: #3e8e41;
+}
+
+.add-user-btn {
+    background-color: #4CAF50; /* Green color */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer; /* Indicate clickable behavior */
+}
+
+.add-user-btn:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.pagination li.active a {
+    background-color: #ddd;
+}
+
+.pagination li a:hover {
+    background-color: #ccc;
+}
+
+/* ... existing styles ... */
+
+.action td {
+    display: flex; /* Make action column cells display flex */
+    justify-content: space-between; /* Align buttons horizontally within the cell */
+}
+
+.success {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #4CAF50;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
