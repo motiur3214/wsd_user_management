@@ -113,13 +113,30 @@ class User
 
     public function updateUser(array $user): bool
     {
-        // Prepare SQL statement (using parameterized query for security)
-        $sql = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+        // Base SQL statement
+        $sql = "UPDATE users SET name = :name, email = :email";
+
+        // Add password to the SQL statement if it is provided
+        if (!empty($user["password"])) {
+            $sql .= ", password = :password";
+        }
+
+        // Append the condition for the specific user ID
+        $sql .= " WHERE id = :id";
+
+        // Prepare the SQL statement
         $stmt = $this->connection->prepare($sql);
-        // Bind values to prevent SQL injection vulnerabilities
+
+        // Bind the required parameters
         $stmt->bindParam(":name", $user["name"]);
         $stmt->bindParam(":email", $user["email"]);
         $stmt->bindParam(":id", $user["id"], PDO::PARAM_INT);
+
+        // Bind the password parameter only if it is provided
+        if (!empty($user["password"])) {
+            $stmt->bindParam(":password", $user["password"]);
+        }
+
         // Execute the statement and check for success
         if ($stmt->execute()) {
             return true; // Update successful
@@ -129,6 +146,7 @@ class User
             return false;
         }
     }
+
 
     public function deleteUser(int $userId): bool
     {
@@ -147,6 +165,7 @@ class User
             return false;
         }
     }
+
     public function isEmailExists($email)
     {
         try {
@@ -162,6 +181,46 @@ class User
             return $rowCount > 0;  // Return true if email exists (at least one row)
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function isEmailDuplicate($email, $user_id)
+    {
+        try {
+
+            $stmt = $this->connection->prepare("SELECT id FROM users WHERE email = :email and id != :user_id");
+
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':id', $user_id);
+
+            $stmt->execute();
+
+            $rowCount = $stmt->rowCount(); // Count rows returned
+
+            return $rowCount > 0;  // Return true if email exists (at least one row)
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function registration(array $user): bool
+    {
+        // Prepare SQL statement (using parameterized query for security)
+        $sql = "INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)";
+        $stmt = $this->connection->prepare($sql);
+        // Bind values to prevent SQL injection vulnerabilities
+        $stmt->bindParam(":name", $user["name"]);
+        $stmt->bindParam(":email", $user["email"]);
+        $stmt->bindParam(":password", $user["password"]);
+        $stmt->bindParam(":role", $user["role"], PDO::PARAM_INT);
+
+        // Execute the statement and check for success
+        if ($stmt->execute()) {
+            return true; // Registration successful
+        } else {
+            // Handle registration failure (e.g., log the error)
+            error_log("Registration failed: " . implode(", ", $stmt->errorInfo()));
+            return false;
         }
     }
 }

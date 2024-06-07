@@ -7,7 +7,7 @@ require_once __DIR__ . '/../Repo/User.php';
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $error_message = $_SESSION["error_message"] ?? '';
     unset($_SESSION["error_message"]);
-    include __DIR__ . '/../Forms/login_form.html';
+    include __DIR__ . '/../Forms/login_form.php';
 }
 
 // Handle login form submission
@@ -20,6 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user) {
         $_SESSION["user_id"] = $user["id"];
+        $_SESSION["user_name"] = $user["name"];
+        $_SESSION["user_email"] = $user["email"];
         $_SESSION["user_role"] = $user['role'];
         header("Location:" . BASE_URL . "/dashboard");
     } else {

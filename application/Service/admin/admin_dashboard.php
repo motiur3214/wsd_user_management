@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
     $user_admin = $user->getUserById($_SESSION['user_id']);
 
     $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Get page number from URL or set to 1
-    $limit = 10; // Number of users per page
+    $limit = 5; // Number of users per page
     $total_users = $user->countUsers();
     $offset = ($current_page - 1) * $limit;
     // Get all users
@@ -36,26 +36,33 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../application/style/common.css">
     <link rel="stylesheet" href="../application/style/admin_dashboard.css">
     <title>Admin Dashboard</title>
 </head>
 <body>
-<header>
-    <h1 style="">Welcome, <span style="color: #3e8e41"><?php echo $user_admin["name"]; ?>!</span></h1>
-    <a href="../logout" class="logout">Logout</a>
-</header>
 <div class="container">
+    <header>
+        <h1 style="">Welcome, <span style="color: #ecedef"><?php echo $user_admin["name"]; ?>!</span></h1>
+        <nav>
+            <a href="<?php echo BASE_URL; ?>/user_registration" class="nav-link">
+                Add New User
+            </a>
+            <a href="<?php echo BASE_URL ?>/logout" class="nav-link">Logout</a>
+        </nav>
+    </header>
+
     <main>
         <!-- Display success message if user update is successful -->
         <?php
-        if (isset($_SESSION['errors']) && $_SESSION['errors'] == "none") {
+        if (!empty($_SESSION['success'])) {
             echo "<p class='success'>User successfully updated!</p>";
-            unset($_SESSION['errors']); // Clear the session variable after displaying the message
+            unset($_SESSION['success']);
         }
         ?>
         <section class="search-filter">
             <form action="" method="post">
-                <div>
+                <div class="input-group">
                     <label for="search_text">Search by Name or Email:</label>
                     <input type="text" id="search_text" name="search_text"
                            value="<?php echo($_POST['search_text'] ?? "") ?>"
@@ -99,16 +106,17 @@ if (isset($_SESSION['user_id'])) {
             }
 
             echo "</table>";
-            if ($total_pages > 1) {
-                echo "<ul class='pagination'>";
-                for ($i = 1; $i <= $total_pages; $i++) {
-                    $active_class = ($i == $current_page) ? "active" : "";
-                    echo "<li class='$active_class'><a href='" . BASE_URL . "/admin/dashboard?page=$i'>$i</a></li>";
-                }
-                echo "</ul>";
-            }
+
         } else {
             echo "No users found.";
+        }
+        if ($total_pages > 1) {
+            echo "<ul class='pagination'>";
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $active_class = ($i == $current_page) ? "active" : "";
+                echo "<li class='$active_class'><a href='" . BASE_URL . "/admin/dashboard?page=$i'>$i</a></li>";
+            }
+            echo "</ul>";
         }
         ?>
 

@@ -17,6 +17,7 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../application/style/common.css">
     <link rel="stylesheet" href="../application/style/user_dashboard.css">
     <title>User Dashboard</title>
 
@@ -24,12 +25,19 @@ if (isset($_SESSION['user_id'])) {
 <body>
 <div class="container">
     <header>
-        <h1 style="">Welcome, <span style="color: #3e8e41"><?php echo $user_data["name"]; ?>!</span></h1>
-        <a href="../logout" class="logout">Logout</a>
+        <h1 style="">Welcome, <span style="color: #f5fcf5"><?php echo $user_data["name"]; ?>!</span></h1>
+        <nav>
+            <form action="../user_delete" method="post"
+                  onsubmit="return confirm('Are you sure you want to delete your account?')">
+                <input type='hidden' name='user_id' value=" <?php echo $user_data['id']; ?>">
+                <button type="submit" class="nav-link" style=" color: #721c24">Delete Account</button>
+            </form>
+            <a href="<?php echo BASE_URL ?>/logout" class="nav-link">Logout</a>
+        </nav>
     </header>
     <main>
         <?php
-        if (isset($_SESSION['errors']) && $_SESSION['errors'] == "none") {
+        if (isset($_SESSION['errors']) && count($_SESSION['errors']) == 0) {
             echo "<p class='success'>Successfully updated!</p>";
             unset($_SESSION['errors']); // Clear the session variable after displaying the message
         }
@@ -44,11 +52,7 @@ if (isset($_SESSION['user_id'])) {
             <a href="<?php echo BASE_URL . "/user_update?user_id=" . $user_data["id"]; ?>">
                 <button class='update-user-btn'>Update</button>
             </a>
-            <form action="../user_delete" method="post"
-                  onsubmit="return confirm('Are you sure you want to delete your account?')">
-                <input type='hidden' name='user_id' value=" <?php echo $user_data['id']; ?>">
-                <button type="submit" class='delete-user-btn'>Delete Account</button>
-            </form>
+
         </section>
     </main>
     <footer>

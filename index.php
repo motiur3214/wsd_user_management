@@ -45,6 +45,10 @@ if (str_contains($_SERVER['REQUEST_URI'], '/wsd_user_management')) {
             // user delete route
             include 'application/Controller/user_delete.php';
             break;
+        case 'user_registration':
+            // registration route
+            include 'application/Controller/user_registration.php';
+            break;
         default:
             echo "Invalid user_management route";
             break;

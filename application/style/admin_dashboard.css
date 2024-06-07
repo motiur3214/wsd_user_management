@@ -1,56 +1,3 @@
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column; /* Display children vertically */
-    min-height: 100vh;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* Grow to fill available space */
-}
-
-header {
-    background-color: #f0f0f0;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between; /* Align items horizontally */
-    align-items: center; /* Align items vertically */
-}
-
-h1 {
-    margin: 0;
-}
-
-main {
-    padding: 20px;
-    flex: 1; /* Make main content take up remaining space */
-}
-
-section {
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff; /* Light background for content */
-}
-
-section h2 {
-    margin-bottom: 10px;
-}
-
-.user-info ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.user-info li {
-    margin-bottom: 5px;
-}
 
 table {
     width: 100%; /* Make table fill available width */
@@ -72,68 +19,72 @@ th {
     color: white;
 }
 
-footer {
-    background-color: #f0f0f0;
-    padding: 10px;
-    text-align: center;
-}
-
-/* Search Filter Styles */
-.search-filter {
-    display: flex; /* Make the elements flex side-by-side */
-    justify-content: space-between; /* Align items at opposite ends */
-}
-
-.search-filter form {
-    flex: 1; /* Allow form to grow to fill remaining space */
-}
-
-.search-filter button {
-    margin-right: 0; /* Remove default margin for better alignment */
-}
-
-.search-filter form div {
-    margin-right: 10px; /* Add some spacing between search fields */
-}
-
-.search-filter label {
-    display: block; /* Make labels appear on separate lines above inputs */
-    margin-bottom: 5px;
-}
-
-.search-filter input[type="text"] {
-    padding: 5px;
+/* Section Styles */
+section.search-filter {
+    margin-bottom: 20px;
+    padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 3px;
-    width: 150px; /* Set a fixed width for search fields */
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Form Styles */
+.search-filter form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input Group */
+.search-filter .input-group {
+    margin-bottom: 15px;
+}
+
+/* Label Styles */
+.search-filter label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Input Styles */
+.search-filter input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Button Styles */
 .search-filter button {
-    padding: 8px 16px; /* Adjust padding as needed */
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-image: linear-gradient(to bottom, #4CAF50 0%, #3e8e41 100%); /* Add a gradient background */
-    color: white;
-    font-size: 16px;
-    text-align: center; /* Center text horizontally */
+    transition: background-color 0.2s ease-in-out;
+    width: 100%;
+    font-size: 14px;
 }
 
 .search-filter button:hover {
-    background-image: linear-gradient(to bottom, #3e8e41 0%, #4CAF50 100%); /* Reverse gradient on hover */
-
+    background-color: #3e8e41;
 }
 
 .add-user-btn {
     background-color: #4CAF50; /* Green color */
-    /*border: none;*/
+    border: none;
     color: white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    /*margin: 10px auto; !* Optional: Center the button horizontally *!*/
     cursor: pointer; /* Indicate clickable behavior */
 }
 
@@ -175,44 +126,13 @@ footer {
     justify-content: space-between; /* Align buttons horizontally within the cell */
 }
 
-
-.update-user-btn {
-    background-color: #4CAF50; /* Green background */
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 2px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.delete-user-btn {
-    background-color: #f1344b; /* Green background */
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 2px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.logout { /* Style the logout link */
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
+.success {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #4CAF50;
+    background-color: #dff0d8;
+    color: #3c763d;
     border-radius: 5px;
-}
-
-.logout:hover { /* Add hover effect */
-    background-color: #ddd;
+    font-size: 16px;
+    text-align: center;
 }

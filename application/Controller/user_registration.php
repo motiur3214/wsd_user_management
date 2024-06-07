@@ -64,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Registration successful, redirect based on user role
         if (isset($_SESSION['user_role'])) {
+            $_SESSION['success'] = true;
             if ($_SESSION['user_role'] == USER_ROLE['admin']) {
                 header("Location:" . BASE_URL . "/admin/dashboard");
             } else {
